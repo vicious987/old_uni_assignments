@@ -1,0 +1,80 @@
+#lang racket
+
+
+(define (dist x y)
+  (abs (- x y)))
+
+(define (average x y)
+  (/ (+ x y) 2))
+
+(define (square x)
+  (* x x))
+
+(define (inc i)
+  (+ i 1))
+
+(define (cube n)
+  (* n n n))
+
+(define (times3 x)
+  (* x 3))
+
+;; trzy przykłady sumowania ciągów liczbowych
+(define (sum-ints s e)
+  (if (> s e)
+      0
+      (+ s (sum-ints (inc s) e))))
+
+(define (sum-cubes s e)
+  (if (> s e)
+      0
+      (+ (cube s) (sum-cubes (inc s) e))))
+
+(define (sum-pi n e)
+  (if (> n e)
+      0
+      (+ (/ 1 (* n (+ n 2))) (sum-pi (+ n 4) e))))
+
+;; ogólna procedura: abstrakcja wyższego rzędu wyrażająca sumowanie wyrazów *pewnego* szeregu
+(define sum
+  (lambda (term next s e)
+    (if (> s e)
+        0
+        (+ (term s) (sum term next (next s) e)))))
+
+;(define (product s e )
+  ;(if (> s e)
+   ;   0
+  ;    (*
+(define product
+  (lambda (term next s e)
+    (if (> s e)
+        1
+        (* (term s) (product term next (next s) e))
+    )
+  )
+)
+
+  
+;; wstepne 2
+(define (comp x y)
+  (lambda (arg) (x (y arg))))
+;; zad 1
+(define (rep proc times)
+  (if (< times 1)
+      (identity proc)
+      (compose proc (rep proc (- times 1)))))
+;;
+;;zad 2 - iteracyjnie
+(define product
+  (lambda (term next s e)
+    (if (> s e)
+        1
+        (* (term s) (product term next (next s) e))
+    )
+  )
+)
+
+
+(sum identity inc 3 6)
+(product identity inc 1 5)

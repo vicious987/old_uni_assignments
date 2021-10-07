@@ -1,0 +1,117 @@
+ndwalk2>:
+static __noinline int randwalk2(uint8_t *arr, int n, int len) {
+ 130:	41 57                	push   %r15
+	uint64_t dir = 0;
+ 132:	31 c0                	xor    %eax,%eax
+static __noinline int randwalk2(uint8_t *arr, int n, int len) {
+ 134:	49 89 ff             	mov    %rdi,%r15
+	int i, j, k = 0;
+ 137:	31 c9                	xor    %ecx,%ecx
+static __noinline int randwalk2(uint8_t *arr, int n, int len) {
+ 139:	41 56                	push   %r14
+ 13b:	44 8d 76 ff          	lea    -0x1(%rsi),%r14d
+ 13f:	41 55                	push   %r13
+	int sum = 0;
+ 141:	45 31 ed             	xor    %r13d,%r13d
+static __noinline int randwalk2(uint8_t *arr, int n, int len) {
+ 144:	41 54                	push   %r12
+ 146:	41 89 d4             	mov    %edx,%r12d
+		j = ((d ^ 2) | (j >> 31) | ~j) ? j : j - 1;
+ 149:	ba fe ff ff ff       	mov    $0xfffffffe,%edx
+static __noinline int randwalk2(uint8_t *arr, int n, int len) {
+ 14e:	55                   	push   %rbp
+	i = n / 2, j = n / 2;
+ 14f:	89 f5                	mov    %esi,%ebp
+ 151:	c1 ed 1f             	shr    $0x1f,%ebp
+static __noinline int randwalk2(uint8_t *arr, int n, int len) {
+ 154:	53                   	push   %rbx
+	i = n / 2, j = n / 2;
+ 155:	01 f5                	add    %esi,%ebp
+static __noinline int randwalk2(uint8_t *arr, int n, int len) {
+ 157:	48 83 ec 18          	sub    $0x18,%rsp
+	i = n / 2, j = n / 2;
+ 15b:	d1 fd                	sar    %ebp
+ 15d:	89 eb                	mov    %ebp,%ebx
+ 15f:	eb 49                	jmp    1aa <randwalk2+0x7a>
+ 161:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+		i = ((d ^ 1) | (i >= n - 1)) ? i : i + 1;
+ 168:	44 89 c7             	mov    %r8d,%edi
+ 16b:	45 31 c9             	xor    %r9d,%r9d
+ 16e:	83 f7 01             	xor    $0x1,%edi
+ 171:	44 39 f5             	cmp    %r14d,%ebp
+ 174:	41 0f 9d c1          	setge  %r9b
+ 178:	44 09 cf             	or     %r9d,%edi
+ 17b:	83 ff 01             	cmp    $0x1,%edi
+ 17e:	83 d5 00             	adc    $0x0,%ebp
+		j = ((d ^ 2) | (j >> 31) | ~j) ? j : j - 1;
+ 181:	89 df                	mov    %ebx,%edi
+ 183:	41 89 d9             	mov    %ebx,%r9d
+ 186:	41 83 f0 02          	xor    $0x2,%r8d
+ 18a:	c1 ff 1f             	sar    $0x1f,%edi
+ 18d:	41 f7 d1             	not    %r9d
+ 190:	44 09 cf             	or     %r9d,%edi
+ 193:	44 09 c7             	or     %r8d,%edi
+ 196:	0f 44 da             	cmove  %edx,%ebx
+		j = (j < n - 1) ? j + 1 : j;
+ 199:	31 ff                	xor    %edi,%edi
+ 19b:	44 39 f3             	cmp    %r14d,%ebx
+ 19e:	40 0f 9c c7          	setl   %dil
+ 1a2:	01 fb                	add    %edi,%ebx
+	} while (--len);
+ 1a4:	41 83 ec 01          	sub    $0x1,%r12d
+ 1a8:	74 66                	je     210 <randwalk2+0xe0>
+		if (k < 0) {
+ 1aa:	83 e9 02             	sub    $0x2,%ecx
+ 1ad:	78 41                	js     1f0 <randwalk2+0xc0>
+		sum += arr[i * n + j];
+ 1af:	41 89 e9             	mov    %ebp,%r9d
+		int d = (dir >> k) & 3;
+ 1b2:	49 89 c0             	mov    %rax,%r8
+		sum += arr[i * n + j];
+ 1b5:	44 0f af ce          	imul   %esi,%r9d
+		int d = (dir >> k) & 3;
+ 1b9:	49 d3 e8             	shr    %cl,%r8
+ 1bc:	41 83 e0 03          	and    $0x3,%r8d
+		sum += arr[i * n + j];
+ 1c0:	41 01 d9             	add    %ebx,%r9d
+ 1c3:	4d 63 c9             	movslq %r9d,%r9
+ 1c6:	43 0f b6 3c 0f       	movzbl (%r15,%r9,1),%edi
+		i = (d | (i >> 31) | ~i) ? i : i - 1;
+ 1cb:	41 89 e9             	mov    %ebp,%r9d
+ 1ce:	41 f7 d1             	not    %r9d
+		sum += arr[i * n + j];
+ 1d1:	41 01 fd             	add    %edi,%r13d
+		i = (d | (i >> 31) | ~i) ? i : i - 1;
+ 1d4:	89 ef                	mov    %ebp,%edi
+ 1d6:	c1 ff 1f             	sar    $0x1f,%edi
+ 1d9:	44 09 cf             	or     %r9d,%edi
+ 1dc:	44 09 c7             	or     %r8d,%edi
+ 1df:	75 87                	jne    168 <randwalk2+0x38>
+ 1e1:	bd fe ff ff ff       	mov    $0xfffffffe,%ebp
+ 1e6:	eb 99                	jmp    181 <randwalk2+0x51>
+ 1e8:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+ 1ef:	00 
+			dir = fast_random();
+ 1f0:	31 c0                	xor    %eax,%eax
+ 1f2:	89 74 24 0c          	mov    %esi,0xc(%rsp)
+ 1f6:	e8 00 00 00 00       	callq  1fb <randwalk2+0xcb>
+			k = 62;
+ 1fb:	b9 3e 00 00 00       	mov    $0x3e,%ecx
+ 200:	ba fe ff ff ff       	mov    $0xfffffffe,%edx
+ 205:	8b 74 24 0c          	mov    0xc(%rsp),%esi
+ 209:	eb a4                	jmp    1af <randwalk2+0x7f>
+ 20b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+}
+ 210:	48 83 c4 18          	add    $0x18,%rsp
+ 214:	44 89 e8             	mov    %r13d,%eax
+ 217:	5b                   	pop    %rbx
+ 218:	5d                   	pop    %rbp
+ 219:	41 5c                	pop    %r12
+ 21b:	41 5d                	pop    %r13
+ 21d:	41 5e                	pop    %r14
+ 21f:	41 5f                	pop    %r15
+ 221:	c3                   	retq   
+ 222:	66 66 2e 0f 1f 84 00 	data16 nopw %cs:0x0(%rax,%rax,1)
+ 229:	00 00 00 00 
+ 22d:	0f 1f 00             	nopl   (%rax)
+

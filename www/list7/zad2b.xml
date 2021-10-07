@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-2"?>
+
+<form>
+  <accId>
+    <part1>1643</part1>
+    <part2>9743</part2>
+    <part3>0413</part3>
+	<part4>6512</part4>
+  </accId>
+  <cvc>666</cvc>
+  <date>
+    <month>02</month>
+    <year>49</year>
+  </date>
+  <name>testymilian</name>
+  <surname>przykladowy</surname>
+  <phone>300500700</phone>
+  <email>poczta@onet.pl</email>
+  <ammount>2</ammount>
+</form>

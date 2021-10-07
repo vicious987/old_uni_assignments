@@ -1,0 +1,6 @@
+Jaki wpływ na wydajność transpose 2 ma rozmiar kafelka?
+Z zebranych danych wynika że transpose2 jest najwydajniejsza przy kafelku o rozmiarze 8.
+
+Czy czas wykonania programu z różnymi rozmiarami macierzy identyfikuje rozmiary poszczególnych poziomów pamięci podręcznej?
+
+Z wykresu możemy wyczytać cykliczne wzrosty w czasie wykonywania programu. Zauważmy też że wersja bezkafelkowa takich nie posiada. Można zatem wywnioskować że zależne są od kafelków - czyli mniejszych wersji macierzy. O ile można by oszacować rozmiary dla L1 i L2, L3 jest współdzielona i pozostaje problemem.

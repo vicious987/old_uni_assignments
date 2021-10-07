@@ -1,0 +1,15 @@
+vec = require("Myvec")
+a = vec.new({-10,10.123,0})
+b = vec.new({3,3,3})
+d = vec.new({1,2,3,4})
+e = vec.new({2,2,2,2})
+f = vec.new({3,5,7,9})
+print(a+b)
+print(10*d)
+print(b.."conctest")
+print(d*e)
+print(a[2])
+print(#b)
+for k,v in ipairs(f) do
+	print(k,v)
+end

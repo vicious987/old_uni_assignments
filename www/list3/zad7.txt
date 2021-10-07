@@ -1,0 +1,7 @@
+https://krasimirtsonev.com/blog/article/CSS-before-and-after-pseudo-elements-in-practice
+
+przykady:
+okruszki - separatory między linkami
+cytaty - znaczniki cytatu przed i po cytatem
+styl tytułów - znaczniki po prawo i lewo tytułu
+ikony - np przed różnymi linkami, listowaniem

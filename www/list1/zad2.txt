@@ -1,0 +1,33 @@
+The hosts file is a computer file used in an operating system to map hostnames to IP addresses. 
+The hosts file is a plain-text file and is traditionally named hosts. 
+For various reasons it may be necessary to update the hosts file on 
+your computer to properly resolve a web site by its domain name.
+
+The most common reason for this is to allow people to view or publish web content immediately after purchasing a new domain name or transferring an existing domain name to another ISP (Internet Service Provider).
+New and transferred domain names have a delay period that can be anywhere from a few hours to a few days. During this period of time the new or transferred domain information propagates around the internet, and is generally unavailable.
+If you need to update your site immediately and cannot wait for the propagation of domain information around the internet, you can edit a file on your computer as a temporary work around.
+
+In its function of resolving host names, the hosts file may be used to define any hostname or domain name for use in the local system.
+
+Redirecting local domains
+    Some web service and intranet developers and administrators define locally defined domains in a LAN for various purposes, such as accessing the company's internal resources or to test local websites in development.[11]
+
+Internet resource blocking
+    Entries in the hosts file may be used to block online advertising, or the domains of known malicious resources and servers that contain spyware, adware, and other malware. This may be achieved by adding entries for those sites to redirect requests to another address that does not exist or to a harmless destination such as the local machine.[12] Commercial software applications may be used to populate the hosts file with entries of known undesirable Internet resources automatically. In addition, user-created hosts files which block nuisance servers are publicly available.[13][14]
+
+    Fravia described these files variously as "scrolls", "precious", and "powerful" in his anti-advertisement pages, where this usage of hosts was first published.[14]
+
+Software piracy
+    Some pirated versions of software rely on a modified hosts file to prevent software from contacting the activation servers of the publisher, although activation servers sometimes appear in general purpose hosts files.[13]
+
+w początkach iternetu hosts kiedys był ręcznie zarządzanym, dzielonym plikiem, spisem wszystkich stron, 'książką telefoniczną internetu'
+
+/etc/hosts
+
+
+79.96.11.200 pawel.ii.uni.wroc.pl
+pusta stron / strona w przygotowaniu
+
+
+156.17.4.11 pawel.ii.uni.wroc.pl
+instytut informatyki

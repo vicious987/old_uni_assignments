@@ -1,0 +1,258 @@
+#lang racket
+;; Mateusz Obara pracownia nr 12
+;; sygnatura: grafy
+(define-signature graph^
+  ((contracted
+    [graph        (-> list? (listof edge?) graph?)]
+    [graph?       (-> any/c boolean?)]
+    [graph-nodes  (-> graph? list?)]
+    [graph-edges  (-> graph? (listof edge?))]
+    [edge         (-> any/c any/c edge?)]
+    [edge?        (-> any/c boolean?)]
+    [edge-start   (-> edge? any/c)]
+    [edge-end     (-> edge? any/c)]
+    [has-node?    (-> graph? any/c boolean?)]
+    [outnodes     (-> graph? any/c list?)]
+    [remove-node  (-> graph? any/c graph?)]
+    )))
+
+;; prosta implementacja grafów
+(define-unit simple-graph@
+  (import)
+  (export graph^)
+
+  (define (graph? g)
+    (and (list? g)
+         (eq? (length g) 3)
+         (eq? (car g) 'graph)))
+
+  (define (edge? e)
+    (and (list? e)
+         (eq? (length e) 3)
+         (eq? (car e) 'edge)))
+
+  (define (graph-nodes g) (cadr g))
+
+  (define (graph-edges g) (caddr g))
+
+  (define (graph n e) (list 'graph n e))
+
+  (define (edge n1 n2) (list 'edge n1 n2))
+
+  (define (edge-start e) (cadr e))
+
+  (define (edge-end e) (caddr e))
+
+  (define (has-node? g n) (not (not (member n (graph-nodes g)))))
+  
+  (define (outnodes g n)
+    (filter-map
+     (lambda (e)
+       (and (eq? (edge-start e) n)
+            (edge-end e)))
+     (graph-edges g)))
+
+  (define (remove-node g n)
+    (graph
+     (remove n (graph-nodes g))
+     (filter
+      (lambda (e)
+        (not (eq? (edge-start e) n)))
+      (graph-edges g)))))
+
+;; sygnatura dla struktury danych
+(define-signature bag^
+  ((contracted
+    [bag?       (-> any/c boolean?)]
+    [empty-bag  (and/c bag? bag-empty?)]
+    [bag-empty? (-> bag? boolean?)]
+    [bag-insert (-> bag? any/c (and/c bag? (not/c bag-empty?)))]
+    [bag-peek   (-> (and/c bag? (not/c bag-empty?)) any/c)]
+    [bag-remove (-> (and/c bag? (not/c bag-empty?)) bag?)])))
+
+;; struktura danych - stos
+(define-unit bag-stack@
+  (import)
+  (export bag^)
+
+  (define (make-stack s)
+    (list 'stack s))
+  
+  (define (stack-stack s)
+    (second s))
+
+  (define (bag? s)
+    (and (list? s)
+         (= 2 (length s))
+         (eq? (first s) 'stack)
+         (list? (second s))))
+  
+  (define (bag-empty? s)
+    (null? (stack-stack s)))
+  
+  (define empty-bag
+    (list 'stack null))
+  
+
+
+  (define (bag-insert s x)
+    (make-stack (cons x (stack-stack s))))
+
+  (define (bag-peek s)
+    (car (stack-stack s)))
+
+  (define (bag-remove s)
+    (make-stack (cdr (stack-stack s))))
+)
+
+;; struktura danych - kolejka FIFO
+(define-unit bag-fifo@
+  (import)
+  (export bag^)
+
+  (define (make-fifo inlist outlist) (list 'fifo inlist outlist))
+  (define (fifo-inlist q) (second q))
+  (define (fifo-outlist q) (third q))
+
+  (define (bag? q)
+    (and (list? q)
+         (= 3 (length q))
+         (eq? 'fifo (first q))
+         (list? (fifo-inlist q))
+         (list? (fifo-outlist q))))
+
+    (define (bag-empty? q)
+    (and (null? (fifo-inlist q))
+         (null? (fifo-outlist q))))
+  
+  (define empty-bag
+    (make-fifo null null))
+  
+  (define (bag-insert q x)
+    (make-fifo (cons x (fifo-inlist q)) (fifo-outlist q)))
+
+  (define (bag-peek q)
+    (if (empty? (fifo-outlist q))
+        (last (fifo-inlist q))
+        (first (fifo-outlist q))))
+
+  (define (bag-remove q)
+    (if (empty? (fifo-outlist q))
+        (make-fifo null (cdr (reverse (fifo-inlist q))))
+        (make-fifo (fifo-inlist q) (cdr (fifo-outlist q)))))
+)
+
+;; sygnatura dla przeszukiwania grafu
+(define-signature graph-search^
+  (search))
+
+;; implementacja przeszukiwania grafu
+;; uzależniona od implementacji grafu i struktury danych
+(define-unit/contract graph-search@
+  (import bag^ graph^)
+  (export (graph-search^
+           [search (-> graph? any/c (listof any/c))]))
+  (define (search g n)
+    (define (it g b l)
+      (cond
+        [(bag-empty? b) (reverse l)]
+        [(has-node? g (bag-peek b))
+         (it (remove-node g (bag-peek b))
+             (foldl
+              (lambda (n1 b1) (bag-insert b1 n1))
+              (bag-remove b)
+              (outnodes g (bag-peek b)))
+             (cons (bag-peek b) l))]
+        [else (it g (bag-remove b) l)]))
+    (it g (bag-insert empty-bag n) '()))
+  )
+
+;; otwarcie komponentu grafu
+(define-values/invoke-unit/infer simple-graph@)
+
+;; graf testowy
+(define test-graph1
+  (graph
+   (list 1 2 3 4)
+   (list (edge 1 3)
+         (edge 1 2)
+         (edge 2 4))))
+
+(define test-graph2
+  (graph
+   (list 1 2 3 4 5 6)
+   (list (edge 1 2)
+         (edge 1 3)
+         (edge 3 5)
+         (edge 3 4)
+         (edge 5 6))))
+
+(define test-graph3
+  (graph
+   (list 1 2 3 4)
+   (list (edge 1 2)
+         (edge 1 3)
+         (edge 1 4))))
+
+(define test-graph4
+  (graph
+   (list 1 2 3 4 5 6 7)
+   (list (edge 1 2)
+         (edge 2 3)
+         (edge 3 4)
+         (edge 4 5)
+         (edge 4 6)
+         (edge 5 7))))
+
+;; otwarcie komponentu stosu
+(define-values/invoke-unit/infer bag-stack@)
+;; opcja 2: otwarcie komponentu kolejki
+;(define-values/invoke-unit/infer bag-fifo@)
+
+;; testy w Quickchecku
+(require quickcheck)
+
+;; test przykładowy: jeśli do pustej struktury dodamy element
+;; i od razu go usuniemy, wynikowa struktura jest pusta
+(quickcheck
+ (property ([s arbitrary-symbol])
+           (bag-empty? (bag-remove (bag-insert empty-bag s)))))
+
+(quickcheck
+ (property ([s arbitrary-symbol])
+           (bag? (bag-insert empty-bag s))))
+
+(quickcheck
+ (property ()
+           (bag? empty-bag)))
+
+;; poprawny dla fifo
+#|
+(quickcheck
+ (property ([s1 arbitrary-symbol]
+            [s2 arbitrary-symbol]
+            [s3 arbitrary-symbol])
+           (let* ([b1 (bag-insert empty-bag s1)]
+                  [b2 (bag-insert b1 s2)]
+                  [b3 (bag-insert b2 s3)])
+           (eq? s1 (bag-peek b3)))))
+|#
+;; poprawny dla stack
+#|
+(quickcheck
+ (property ([s1 arbitrary-symbol]
+            [s2 arbitrary-symbol]
+            [s3 arbitrary-symbol])
+           (let* ([b1 (bag-insert empty-bag s1)]
+                  [b2 (bag-insert b1 s2)]
+                  [b3 (bag-insert b2 s3)])
+           (eq? s3 (bag-peek b3)))))
+|#
+;; otwarcie komponentu przeszukiwania
+(define-values/invoke-unit/infer graph-search@)
+
+;; uruchomienie przeszukiwania na przykładowym grafie
+(search test-graph1 1)
+(search test-graph2 1)
+(search test-graph3 1)
+(search test-graph4 1)

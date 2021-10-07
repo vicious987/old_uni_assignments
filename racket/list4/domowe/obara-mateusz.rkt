@@ -1,0 +1,158 @@
+#lang racket
+; Mateusz Obara, lista 4, pracownia
+;; 
+(define (inc n)
+  (+ n 1))
+
+;;; ordered elements
+(define (make-elem pri val)
+  (cons pri val))
+
+(define (elem-priority x)
+  (car x))
+
+(define (elem-val x)
+  (cdr x))
+
+;;; leftist heaps (after Okasaki)
+
+;; data representation
+(define leaf 'leaf)
+
+(define (leaf? h) (eq? 'leaf h))
+
+(define (hnode? h)
+  (and (list? h)
+       (= 5 (length h))
+       (eq? (car h) 'hnode)
+       (natural? (caddr h))))
+
+(define (rank h)
+  (if (leaf? h)
+      0
+      (third h)))
+
+;; ----------------------------------
+;; pierwsza uzupełniona implementacja
+;; ----------------------------------
+(define (make-node  elem  heap-a  heap-b)
+  (let ([heap-lesser (if (< (rank heap-a) (rank heap-b)) heap-a heap-b)]
+        [heap-greater (if (> (rank heap-a) (rank heap-b)) heap-a heap-b)])
+    (list 'hnode elem (+ (rank heap-greater) 1) heap-lesser heap-greater)))
+
+(define (node-elem h)
+  (second h))
+
+(define (node-left h)
+  (fourth h))
+
+(define (node-right h)
+  (fifth h))
+
+(define (hord? p h)
+  (or (leaf? h)
+      (<= p (elem-priority (node-elem h)))))
+
+(define (heap? h)
+  (or (leaf? h)
+      (and (hnode? h)
+           (heap? (node-left h))
+           (heap? (node-right h))
+           (<= (rank (node-right h))
+               (rank (node-left h)))
+           (= (rank h) (inc (rank (node-right h))))
+           (hord? (elem-priority (node-elem h))
+                  (node-left h))
+           (hord? (elem-priority (node-elem h))
+                  (node-right h)))))
+
+
+
+;; operations
+
+(define empty-heap leaf)
+
+(define (heap-empty? h)
+  (leaf? h))
+
+(define (heap-insert elt heap)
+  (heap-merge heap (make-node elt leaf leaf)))
+
+(define (heap-min heap)
+  (node-elem heap))
+
+(define (heap-pop heap)
+  (heap-merge (node-left heap) (node-right heap)))
+
+;; -------------------------------
+;; druga uzupełniona implementacja
+;; -------------------------------
+(define (heap-merge h1 h2)
+  (cond
+   [(leaf? h1) h2]
+   [(leaf? h2) h1]
+   [else
+    (let ([he (if (< (elem-priority (node-elem h1)) (elem-priority (node-elem h2))) h1 h2)]
+          [ho (if (< (elem-priority (node-elem h1)) (elem-priority (node-elem h2))) h2 h1)])
+      (let ([e (node-elem he)]
+            [he-l (node-left he)]
+            [he-r (node-right he)])
+        (make-node e he-l (heap-merge he-r ho))
+        )
+      )
+    ]
+   )
+  )
+
+;;; heapsort. sorts a list of numbers.
+(define (heapsort xs)
+  (define (popAll h)
+    (if (heap-empty? h)
+        null
+        (cons (elem-val (heap-min h)) (popAll (heap-pop h)))))
+  (let ((h (foldl (lambda (x h)
+                    (heap-insert (make-elem x x) h))
+            empty-heap xs)))
+    (popAll h)))
+
+
+
+;;; check that a list is sorted (useful for longish lists)
+(define (sorted? xs)
+  (cond [(null? xs)              true]
+        [(null? (cdr xs))        true]
+        [(<= (car xs) (cadr xs)) (sorted? (cdr xs))]
+        [else                    false]))
+
+;;; generate a list of random numbers of a given length
+(define (randlist len max)
+  (define (aux len lst)
+    (if (= len 0)
+        lst
+        (aux (- len 1) (cons (random max) lst))))
+  (aux len null))
+
+
+;;-------
+;; testy 
+;;-------
+
+;;pare losowych:
+(define test-rand-1 (randlist 10 20))
+(define test-rand-2 (randlist 10 100))
+(define test-rand-3 (randlist 10 3))
+(define test-rand-4 (randlist 100 1000))
+
+;;pare szczególnych:
+(define test-spec-1 '())
+(define test-spec-2 (list 13))
+(define test-spec-3 (list 1 1 1 1 1 1 1 1))
+(define test-spec-4 (list 5 4 3 2 1))
+(define test-spec-5 (list 1 2 3 4 5))
+
+(define tests (list test-rand-1 test-rand-2 test-rand-3 test-rand-4
+                    test-spec-1 test-spec-2 test-spec-3 test-spec-4 test-spec-5))
+
+(define outcomes (map (compose sorted? heapsort) tests))
+outcomes
+(andmap identity outcomes)

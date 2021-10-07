@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<!-- Mateusz Obara, zadanie 6 z listy 3-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Zad 6</title>
+
+    <style type="text/css">
+
+	li {
+		list-style:none;
+	}
+	ul.red > li{
+		list-style-image: url("circle-16.png");
+	}
+
+	ul.red2 > li:before {
+		list-style:none;
+		content: "";
+		background: url("circle-16.png") no-repeat;
+		width: 16px;
+		height: 16px;
+		float: left;
+	}
+	ul.red3 > li {
+		background: url("circle-16.png") no-repeat;   
+		padding: 0px 0px 0px 20px;
+	}
+	</style>
+</head>
+<!--
+
+
+-->
+
+<body>
+	<ul class="red">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+	</ul>
+
+	<ul class="red2">
+    <li>4</li>
+    <li>5</li>
+    <li>6</li>
+	</ul>
+
+	<ul class="red3">
+    <li>7</li>
+    <li>8</li>
+    <li>9</li>
+	</ul>
+
+</body>
+</html>

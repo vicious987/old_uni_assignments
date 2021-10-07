@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<!-- Mateusz Obara, zadanie 7 z listy 1-->
+<!-- twórz  formularz  przelewu  o  następujących  polach:  nr  konta,  imię,  nazwisko,  e-mail,  adres,  kodpocztowy, miasto, kwota przelewu, data przelewu-->
+<html lang="en">
+	<head>
+		<title>Zad 7</title>
+		<meta charset="UTF-8">
+	</head>
+	<form action="*" autocomplete="on">
+		<label>Nr konta:</label> 	<input 		type="number" 	name="Account"  	autofocus required/><br>
+		<label>Imię:</label> 		<input 		type="text" 	name="Name" 		size="20" required/><br>
+		<label>Nazwisko:</label> 	<input 		type="text" 	name="Surname" 		size="20" required/><br>
+		<label>Email:</label> 		<input 		type="email" 	name="Email" 		size="20" required/><br>
+		<label>Adres:</label> 		<input 		type="text" 	name="Adress" 		size="20" required/><br>
+		<label>Kod pocztowy:</label> <input 	type="text" 	name="Postcdoe" 	size="10" required/><br>
+		<label>Miasto:</label> 		<input 		type="text" 	name="City" 		size="20" required/><br>
+		<label>Kwota:</label> 		<input 		type="number" 	name="Value" 		required/><br>
+		<label>Data:</label> 		<input 		type="date" 	name="Date" 		size="20" required/><br>
+		<input type="submit" value="Przelej">  
+		<input type="reset" value="Wyczyść dane">
+	</form>
+</html>

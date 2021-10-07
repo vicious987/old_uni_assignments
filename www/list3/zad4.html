@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!-- Mateusz Obara, zadanie 4 z listy 3-->
+<html lang="en">
+	<head>
+		<title>Zad 4</title>
+		<style type="text/css">
+		div.rel {
+			position: relative;
+			left: 200px;
+			padding:15px;
+			background-color:red;
+		}
+		div.sta {
+			position:static;	    
+			padding:15px;
+			background-color:yellow;
+		}
+		div.abs {
+			position: absolute;
+			top: 80px;
+			right: 0;
+			width: 200px;
+			height: 100px;
+			background-color:green;
+		}
+		div.fix {
+			right: 300px;
+			top: 300px;
+			position:fixed;
+			padding:15px;
+			background-color:blue;
+		}
+		</style>
+	</head>
+	<body>
+		<div class="rel">
+			Relatywne - pozwala przesunac element zwgledem jego naturanego polozenia<br>
+			left:200px
+			<div class="abs">
+				Pozycjonowanie absolutne.
+				wzgledne do najblizszego polozonego przodka,
+				możemy przesunąć element względem innych
+			</div>
+		</div>
+		<div class="fix">
+			ustalone - element zostaje w tym samym miejscu podczas przesuwania strony
+		</div>
+		<div class="sta">
+			statyczne - nie wyjątkowy sposób, zgodnie z flowem strony
+		</div>
+		<br>.<br>.<br>.<br>.<br>.<br>.
+		<br>.<br>.<br>.<br>.<br>.<br>.
+		<br>.<br>.<br>.<br>.<br>.<br>.
+		<br>.<br>.<br>.<br>.<br>.<br>.
+		<br>.<br>.<br>.<br>.<br>.<br>.
+		<br>.<br>.<br>.<br>.<br>.<br>.
+		<br>.<br>.<br>.<br>.<br>.<br>.
+		<br>.<br>.<br>.<br>.<br>.<br>.
+	</body>
+</html>

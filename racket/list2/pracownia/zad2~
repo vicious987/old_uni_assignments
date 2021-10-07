@@ -1,0 +1,18 @@
+#lang racket
+(define (dist x y)
+  (abs (- x y)))
+
+(define (close-enough? x y)
+  (< (dist x y) 0.00001))
+
+(define (fix-point f x0)
+  (let ((x1 (f x0)))
+    (if (close-enough? x0 x1)
+        x0
+        (fix-point f x1))))
+
+(define (average-damp f)
+  (lambda (x) (/ (+ x (f x)) 2)))
+
+(define (sqrt-ad x)
+  (fix-point (average-damp (lambda (y) (/ x y))) 1.0))

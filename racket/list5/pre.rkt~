@@ -1,0 +1,69 @@
+#lang racket
+
+(define (var? t)
+  (symbol? t))
+
+(define (neg? t)
+  (and
+   (list? t)
+   (= 2 (length t))
+   (eq? 'neg (car t))))
+;;and
+(define (conj? t) 
+  (and
+   (list? t)
+   (= 3 (length t))
+   (eq? 'conj (car t))))
+;;or
+(define (disj? t)
+  (and
+   (list? t)
+   (= 3 (length t))
+   (eq? 'disj (car t))))
+
+;;zad1
+;;konstruktory
+(define (make-neg a)
+  (list 'neg a))
+
+(define (make-conj l r)
+  (list 'conj l r))
+
+(define (make-disj l r)
+  (list 'disj l r))
+;;selektory
+(define (neg-subf x)
+  (second x))
+
+(define (conj-left x)
+  (second x))
+
+(define (conj-right x)
+  (third x))
+
+(define (disj-left x)
+  (second x))
+
+(define (disj-right x)
+  (third x))
+
+(define (prop? f)
+  (or
+   (var? f)
+   (and (neg? f) (prop? (neg-subf f)))
+   (and (disj? f) (prop? (disj-left f)) (prop? (disj-right f)))
+   (and (conj? f) (prop? (conj-left f)) (prop? (conj-right f)))))
+;; zad2
+;;formula -> list
+(define (free-vars f)
+  (if (var? f)
+      (list f)
+      (cond
+        [(neg? f) (free-vars (neg-subf f))]
+        [(conj? f) (append (free-vars (conj-left f)) (free-vars (conj-right f)))]
+        [(disj? f) (append (free-vars (disj-left f)) (free-vars (disj-right f)))])))
+
+(define a (make-conj 'conj1 'conj2))
+(define b (make-disj 'disj1 'disj2))
+(define negb (make-neg b))
+(define ai~b (make-conj a negb))

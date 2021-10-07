@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"structs","l":"Mypair"},{"p":"structs","l":"Myset"},{"p":"structs","l":"MysetDynamic"},{"p":"structs","l":"MysetTable"}]

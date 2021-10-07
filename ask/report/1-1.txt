@@ -1,0 +1,8 @@
+czy wyniki różnią się od tych uzyskanych na slajdzie?
+Tak, różnią się, ale wykazują wspólny trend. Wyniki uzyskane na mojej maszynie wydają się bardziej 'wachać'.
+
+Z czego wynika rozbieżność między wynikami dla poszczególnych wersji mnożenia macierzy?
+Wynika ona z różnej kolejności pobierania danych z pamięci. Szybsze funkcje starają się czytać je tak, aby ograniczyć liczbę missów w cacheu.
+
+Jaki wpływ ma rozmiar kafelka na wydajność multiply3?
+Z danych możemy wyczytać że funkcja działa najszybciej gdy rozmiar kafelka wynosi 16. Zarówno dla mniejszych i wiekszych wartości obserwujemy dłuższe czasy.

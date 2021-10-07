@@ -1,0 +1,10 @@
+{
+  "cardId" :["4963","1964","1522","1963"],
+  "date" : ["07","10"],
+  "cvc": "666",
+  "name": "Testymilian",
+  "surname": "Przykladnik",
+  "email": "skrzynka@onet.pl",
+  "phone": "300500700",
+  "ammount": 2
+}

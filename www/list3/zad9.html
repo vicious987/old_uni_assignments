@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+	<head>
+		<title>Zad 9</title>
+		<style>
+.flex-container {
+	display: flex;
+	background-color: navajowhite;
+}
+
+.flex-container > div {
+	background-color: maroon;
+	width: 300px;
+	height: 50px;
+	margin: 10px;
+	text-align: center;
+	font-size: 30px;
+}
+		</style>
+		<meta charset="UTF-8">
+	</head>
+
+	<body>
+		<p>flex</p>
+		<div class="flex-container">
+			<div></div>
+			<div></div>
+		</div>
+
+		<p>flex grow</p>
+		<div class="flex-container">
+			<div style="flex-grow: 1">grow 1</div>
+			<div style="flex-grow: 9">grow 9</div>
+		</div>
+
+		<p>flex shrink</p>
+		<div class="flex-container">
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div style="flex-shrink: 5">shrink 5</div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+
+		<p>flex basis</p>
+		<div class="flex-container">
+			<div></div>
+			<div></div>
+			<div style="flex-basis: 500px">basis:500</div>
+			<div></div>
+		</div>
+	</body>
+
+</html>

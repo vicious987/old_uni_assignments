@@ -1,0 +1,5 @@
+ab : de
+ab : op
+qw : *
+ba : uw
+cd : uw

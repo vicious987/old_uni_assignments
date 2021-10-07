@@ -1,0 +1,55 @@
+#lang racket
+(define (var? x)
+  (symbol? x))
+(define (var x) x)
+(define (var-name x) x)
+(define (var=? x y)
+  (eq? x y))
+
+(define a (var 'a))
+(define b (var 'b))
+(define c (var 'c))
+(define d (var 'd))
+(define e (var 'e))
+(define f (var 'f))
+(define g (var 'g))
+(define h (var 'h))
+
+(define cl1 (list a b c d))
+(define cl2 (list e f b c))
+
+(define (is-x-in-cl x cl)
+  (ormap (lambda (y) (var=? x y)) cl))
+
+(define (trv claus1 claus2)
+  (ormap (lambda (x) (is-x-in-cl x claus2)) claus1))
+
+(define (common-vars claus1 claus2)
+  (filter (lambda (x) (is-x-in-cl x claus2)) claus1))
+
+(define cm (common-vars cl1 cl2))
+
+
+
+
+(define (remove-commons claus1 commons)
+  (filter-not (lambda (x) (is-x-in-cl x commons)) claus1))
+
+(remove-commons cl1 cm)
+
+
+
+(define (rcm c1 c2)
+    (let* ([cp1 (res-clause-pos c1)]
+           [cn1 (res-clause-neg c1)]
+           [cp2 (res-clause-pos c2)]
+           [cn2 (res-clause-pos c2)]
+           [common-cp1-cn2 (common-vars cp1 cn2)]
+           [common-cp2-cn1 (common-vars cp2 cn1)]
+           [cp1-wc (rmv-c cp1 common1)]
+           [cn1-wc (rmv-c cn2 common1)]
+           [cp2-wc (rmv-c cp2 common2)]
+           [cn2-wc (rmv-c cn2 common2)]
+           )
+      (res-clause (merge cp1-wc cp2-wc) (merge cn1-wc cn2-wc) )
+  

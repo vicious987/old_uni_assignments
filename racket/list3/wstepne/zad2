@@ -1,0 +1,68 @@
+#lang racket
+(define (make-point x y)
+  (cons x y))
+
+(define (point? p)
+  (pair? p))
+
+(define (point-x p)
+  (car p))
+
+(define (point-y p)
+  (cdr p))
+               
+(define (make-vec begin-point end-point)
+  (cons begin-point end-point))
+
+(define (vect-begin v)
+  (car v))
+
+(define (vect-end v)
+  (cdr v))
+  
+(define (vect? v)
+  (if (and (point? (vect-begin v)) (point? (vect-end v))) #t #f))
+
+(define (vect-length v)
+  (let ([a (abs (- (point-x (vect-begin v)) (point-x (vect-end v))))]
+        [b (abs (- (point-x (vect-begin v)) (point-y (vect-end v))))])
+    (sqrt (+ (* a a) (* b b)))))
+
+(define (vect-scale v s)
+    (let ([a (- (point-x (vect-end v)) (point-x (vect-begin v)))]
+          [b (- (point-y (vect-end v)) (point-y (vect-begin v)))])
+      (let ([as (* a s)]
+            [bs (* b s)])
+        (let ([new-end-x (+ (point-x (vect-begin v)) as)]
+              [new-end-y (+ (point-y (vect-begin v)) bs)])
+          (make-vec (vect-begin v) (make-point new-end-x new-end-y))))))
+        
+(define (vect-translate v p)
+   (let ([a (- (point-x p) (point-x (vect-begin v)))]
+         [b (- (point-y p) (point-y (vect-begin v)))])
+     (make-vec p (make-point (+ (point-x (vect-end v)) a) (+ (point-y (vect-end v)) b)))))
+
+(define (display-point p)
+  (display "(")
+  (display (point-x p))
+  (display ", ")
+  (display (point-y p))
+  (display ")"))
+
+(define (display-vect v)
+  (display "[")
+  (display-point (vect-begin v))
+  (display ", ")
+  (display-point (vect-end v))
+  (display "]"))
+
+
+(let ([p1 (make-point 0 0)]
+      [p2 (make-point 4 3)]
+      [p3 (make-point 0 5)])
+  (let ([v (make-vec p1 p2)])
+       (display-vect (vect-translate v p3))))
+;(let ([p1 (make-point 0 0)]
+ ;     [p2 (make-point 4 3)])
+  ;(let ([v (make-vec p1 p2)])
+   ; (display-vect (vect-foo v))))

@@ -1,0 +1,127 @@
+tatic __noinline int randwalk1(uint8_t *arr, int n, int len) {
+   0:	41 57                	push   %r15
+	int sum = 0;
+	int i, j, k = 0;
+	uint64_t dir = 0;
+   2:	31 c0                	xor    %eax,%eax
+static __noinline int randwalk1(uint8_t *arr, int n, int len) {
+   4:	41 89 f7             	mov    %esi,%r15d
+	int i, j, k = 0;
+   7:	31 c9                	xor    %ecx,%ecx
+static __noinline int randwalk1(uint8_t *arr, int n, int len) {
+   9:	41 56                	push   %r14
+   b:	49 89 fe             	mov    %rdi,%r14
+   e:	41 55                	push   %r13
+				i++;
+		} else if (d == 2) {
+			if (j > 0)
+				j--;
+		} else {
+			if (j < n - 1)
+  10:	8d 7e ff             	lea    -0x1(%rsi),%edi
+	int sum = 0;
+  13:	45 31 ed             	xor    %r13d,%r13d
+static __noinline int randwalk1(uint8_t *arr, int n, int len) {
+  16:	41 54                	push   %r12
+  18:	41 89 d4             	mov    %edx,%r12d
+  1b:	55                   	push   %rbp
+	i = n / 2, j = n / 2;
+  1c:	89 f5                	mov    %esi,%ebp
+  1e:	c1 ed 1f             	shr    $0x1f,%ebp
+static __noinline int randwalk1(uint8_t *arr, int n, int len) {
+  21:	53                   	push   %rbx
+	i = n / 2, j = n / 2;
+  22:	01 f5                	add    %esi,%ebp
+static __noinline int randwalk1(uint8_t *arr, int n, int len) {
+  24:	48 83 ec 18          	sub    $0x18,%rsp
+	i = n / 2, j = n / 2;
+  28:	d1 fd                	sar    %ebp
+			if (j < n - 1)
+  2a:	89 7c 24 0c          	mov    %edi,0xc(%rsp)
+	i = n / 2, j = n / 2;
+  2e:	89 eb                	mov    %ebp,%ebx
+  30:	eb 16                	jmp    48 <randwalk1+0x48>
+  32:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+				i--;
+  38:	31 f6                	xor    %esi,%esi
+  3a:	85 ed                	test   %ebp,%ebp
+  3c:	40 0f 9f c6          	setg   %sil
+  40:	29 f5                	sub    %esi,%ebp
+				j++;
+		}
+	} while (--len);
+  42:	41 83 ec 01          	sub    $0x1,%r12d
+  46:	74 44                	je     8c <randwalk1+0x8c>
+		if (k < 0) {
+  48:	83 e9 02             	sub    $0x2,%ecx
+  4b:	78 53                	js     a0 <randwalk1+0xa0>
+		sum += arr[i * n + j];
+  4d:	41 89 e8             	mov    %ebp,%r8d
+		int d = (dir >> k) & 3;
+  50:	49 89 c1             	mov    %rax,%r9
+		sum += arr[i * n + j];
+  53:	45 0f af c7          	imul   %r15d,%r8d
+		int d = (dir >> k) & 3;
+  57:	49 d3 e9             	shr    %cl,%r9
+		sum += arr[i * n + j];
+  5a:	41 01 d8             	add    %ebx,%r8d
+  5d:	4d 63 c0             	movslq %r8d,%r8
+  60:	43 0f b6 34 06       	movzbl (%r14,%r8,1),%esi
+  65:	41 01 f5             	add    %esi,%r13d
+		if (d == 0) {
+  68:	41 83 e1 03          	and    $0x3,%r9d
+  6c:	74 ca                	je     38 <randwalk1+0x38>
+		} else if (d == 1) {
+  6e:	41 83 f9 01          	cmp    $0x1,%r9d
+  72:	74 3c                	je     b0 <randwalk1+0xb0>
+		} else if (d == 2) {
+  74:	41 83 f9 02          	cmp    $0x2,%r9d
+  78:	74 46                	je     c0 <randwalk1+0xc0>
+				j++;
+  7a:	31 f6                	xor    %esi,%esi
+  7c:	39 5c 24 0c          	cmp    %ebx,0xc(%rsp)
+  80:	40 0f 9f c6          	setg   %sil
+  84:	01 f3                	add    %esi,%ebx
+	} while (--len);
+  86:	41 83 ec 01          	sub    $0x1,%r12d
+  8a:	75 bc                	jne    48 <randwalk1+0x48>
+
+	return sum;
+}
+  8c:	48 83 c4 18          	add    $0x18,%rsp
+  90:	44 89 e8             	mov    %r13d,%eax
+  93:	5b                   	pop    %rbx
+  94:	5d                   	pop    %rbp
+  95:	41 5c                	pop    %r12
+  97:	41 5d                	pop    %r13
+  99:	41 5e                	pop    %r14
+  9b:	41 5f                	pop    %r15
+  9d:	c3                   	retq   
+  9e:	66 90                	xchg   %ax,%ax
+			dir = fast_random();
+  a0:	31 c0                	xor    %eax,%eax
+  a2:	e8 00 00 00 00       	callq  a7 <randwalk1+0xa7>
+			k = 62;
+  a7:	b9 3e 00 00 00       	mov    $0x3e,%ecx
+  ac:	eb 9f                	jmp    4d <randwalk1+0x4d>
+  ae:	66 90                	xchg   %ax,%ax
+				i++;
+  b0:	31 f6                	xor    %esi,%esi
+  b2:	39 6c 24 0c          	cmp    %ebp,0xc(%rsp)
+  b6:	40 0f 9f c6          	setg   %sil
+  ba:	01 f5                	add    %esi,%ebp
+  bc:	eb 84                	jmp    42 <randwalk1+0x42>
+  be:	66 90                	xchg   %ax,%ax
+				j--;
+  c0:	31 f6                	xor    %esi,%esi
+  c2:	85 db                	test   %ebx,%ebx
+  c4:	40 0f 9f c6          	setg   %sil
+  c8:	29 f3                	sub    %esi,%ebx
+  ca:	e9 73 ff ff ff       	jmpq   42 <randwalk1+0x42>
+  cf:	90                   	nop
+
+00000000000000d0 <test_randwalk1>:
+	} while (--len);
+
+	return sum;
+}

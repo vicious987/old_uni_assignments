@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>zad 3</title>
+    <link rel="stylesheet" href="http://	code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <link rel="stylesheet" href="/resources/demos/style.css">
+	<style>
+		body {
+			font-size: 75%;
+		}
+		label, input {
+			display: block;
+		}
+		input.text {
+			width: 100%;
+		}
+		div#users-contain table {
+			width: 100%;
+		}
+
+		div#users-contain table td, div#users-contain table th {
+			border: 2px solid black;
+		}
+	</style>
+    <script>
+		$(function () {
+			var dialog, form,
+				name = $("#name"),
+				surname = $("#surname"),
+				city = $("#city"),
+				zipcode = $("#zipcode"),
+				birth = $("#birth"),
+				allFields = $([]).add(name).add(surname).add(city).add(zipcode).add(birth),
+				tips = $(".validateTips");
+
+			function addUser() {
+				var valid = true;
+				allFields.removeClass("ui-state-error");
+				$("#users tbody").append("<tr>" +
+					"<td>" + name.val() + "</td>" +
+					"<td>" + surname.val() + "</td>" +
+					"<td>" + city.val() + "</td>" +
+					"<td>" + zipcode.val() + "</td>" +
+					"<td>" + birth.val() + "</td>" +
+					"<td>" + "<button type='button'  class='removebutton' title='Usuń'>X</button>" + "</td>" +
+					"</tr>");
+				dialog_form.dialog("close");
+			}
+
+			dialog = $("#dialog-form").dialog({
+				autoOpen: false,
+				height: 400,
+				width: 550,
+				modal: true,
+				buttons: {
+					"Add": addUser,
+					"Cancel": function () { dialog.dialog("close"); }
+				},
+				close: function () {
+					form[0].reset();
+					allFields.removeClass("ui-state-error");
+				}
+			});
+
+			form = dialog.find("form").on("submit", function (event) {
+				event.preventDefault();
+				addUser();
+			});
+
+			$("#create-user").button().on("click", function () {
+				dialog.dialog("open");
+			});
+			$("#birth").datepicker({
+				dateFormat: 'dd-mm-yy'
+			});
+			$(document).on('click', 'button.removebutton', function () {
+				table_row = this;
+				$("#dialog-remove").dialog('open');
+				return false;
+			});
+			$("#dialog-remove").dialog({
+				modal: true,
+				bgiframe: true,
+				width: 210,
+				height: 150,
+				autoOpen: false,
+				buttons: {
+					"Yes": function () {
+						$(table_row).closest('tr').remove();
+						$(this).dialog("close");
+					},
+					"No": function () {
+						$(this).dialog("close");
+					}
+				}
+			});
+		});
+	</script>
+</head>
+<body>
+	<div id="dialog-form" title="Add">
+		<form>
+			<fieldset>
+				<label for="name">Name</label>
+				<input type="text" name="name" id="name"		class="text ui-widget-content ui-corner-all">
+				<label for="surname">Surname</label>
+				<input type="text" name="surname" id="surname"	class="text ui-widget-content ui-corner-all">
+				<label for="city">City</label>
+				<input type="text" name="city" id="city"		class="text ui-widget-content ui-corner-all">
+				<label for="zipcode">Postcode</label>
+				<input type="text" name="zipcode" id="zipcode"	class="text ui-widget-content ui-corner-all">
+				<label for="birth">Birthdate</label>
+				<input type="text" name="birth" id="birth"		class="text ui-widget-content ui-corner-all">
+
+				<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+			</fieldset>
+		</form>
+	</div>
+
+	<div id="users-contain" class="ui-widget">
+		<table id="users" class="ui-widget ui-widget-content">
+			<thead>
+				<tr class="ui-widget-header">
+					<th>Name</th>
+					<th>Surname</th>
+					<th>City</th>
+					<th>Postcode</th>
+					<th>Birthdate</th>
+					<th>Remove</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+	</div>
+
+	<div id="dialog-remove" title="Are you sure?">
+		<p>Do you really want to remove this entry?</p>
+	</div>
+
+	<button id="create-user">Add</button>
+
+
+</body>
+</html>

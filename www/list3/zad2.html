@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!-- Mateusz Obara, zadanie 2 z listy 3-->
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Zad2</title>
+		<style type="text/css">
+
+.boxmodel {
+	background-color: gray;
+	width: 400px;
+	padding: 20px;
+	border: 4px dashed black;
+	margin: 50px;
+}
+		</style>
+	</head>
+	<body>
+		<div class="boxmodel">
+			Oto div z boxmodelem:<br>
+			background-color: gray;<br>
+			width: 400px;<br>
+			padding: 20px;<br>
+			border: 4px dashed black;<br>
+			margin: 50px;<br>
+		</div>
+
+		<div style="display: inline; " class="boxmodel">
+			Div z display: inline;
+		</div>
+
+		<span class="boxmodel">
+			Oto span; zauważmy że width tu nie działa, długość zależna od zawartościiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
+			<!--
+	   		<br>
+			-->
+		</span>
+
+		<span style="display: block;" class="boxmodel">
+			Span z diplay: block<br>
+			width zachowuje się należycie<br>
+		</span>
+	</body>
+</html>
+<!-- block zajmuje tyle miejsca ile mu nadamy, inline zajmuje tyle miejsca ile mu potrzeba(rozciaga sie)-->

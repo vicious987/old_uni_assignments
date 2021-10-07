@@ -1,0 +1,13 @@
+#lang racket
+
+(define (make-vec x y)
+  (cons x y))
+
+(define (vect? v)
+  (cons? v))
+
+(define (vect-begin v)
+  (car v))
+
+(define (vect-end v)
+  (cdr v))

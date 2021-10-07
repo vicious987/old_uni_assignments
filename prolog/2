@@ -1,0 +1,34 @@
+%
+appn([Res],Res).
+appn([H1,H2|T],X):-
+	append(H1,H2,H),
+appn([H|T],X).
+
+% using a stack - 166
+constant(X) :- atomic(X).
+flatten(Xs,Ys) :- flatten(Xs,[],Ys).
+flatten([X|Xs],S,Ys) :- 
+	list(X),
+	flatten(X,[Xs|S],Ys).
+
+flatten([X|Xs],S,[X|Ys]) :- 
+	constant(X), 
+	X \= [],
+	flatten(Xs,S,Ys).
+
+flatten([],[X|S],Ys) :-
+	flatten(X,S,Ys).
+
+flatten([],[],[]).
+
+list([X|Xs]).
+	
+%double recursion - 165
+flat([X|Xs],Ys):-
+	flat(X,Ys1),
+	flat(Xs,Ys2),
+	append(Ys1,Ys2,Ys).
+
+flat(X,[X]):- constant(X), X \= [].
+
+flat([],[]).

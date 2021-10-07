@@ -1,0 +1,10 @@
+Ile instrukcji maszynowych ma ciało pętli przed i po optymalizacji? 
+Przed optymalizacją: 57
+Po optymalizacji: 58
+
+Ile spośród nich to instrukcje warunkowe?
+Przed optymalizacją: 6
+Po optymalizacji: 3
+
+Czy rozmiar tablicy ma duży wpływ na działanie programu?
+Tak, podążając za wykresem, widzimy że dla dużej ilości danych czas wykonywania fukcji nie zmienia się znacznie. Dopiero z odpowiednio dużymi wielkościami jak np, możemy zauważyć wzrost. Zatem

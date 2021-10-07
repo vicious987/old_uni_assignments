@@ -1,0 +1,21 @@
+#lang racket
+
+(car '(3 5 6))
+
+(define (make-rat num denom)
+  (cons num (cons denom null)))
+
+(define (rat-num x)
+  (car x))
+
+(define (rat-denom x)
+  (car (cdr x)))
+
+(define (rat? x)
+  (if (and
+       (pair? x)
+       (pair? (cdr x))
+       (null? (cdr (cdr x))))
+      #t
+      #f
+      ))

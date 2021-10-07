@@ -1,0 +1,35 @@
+--[[Zadanie 4.
+(3p) Zaprojektuj kalendarz przechowujący zdarzenia których czas startu i końca ma typ date. Napisz funkcję
+add (calendar, event) która dodaje wydarzenie do kalendarza i zwraca wskaźnik na to wydarzenie w 
+kalendarzu jeśli operacja się powiedzie lub nil i wskaźnik na wydarzenie kolidujące w przeciwnym przypadku.
+Napisz funkcję show (calendar [, all])która wypisuje wydarzenia z kalendarza w porządku
+rosnącym, domyslnie od aktualnej chwili, chyba, że argument all jest prawdą, wtedy wypisz cały kalendarz.
+]]--
+
+-- event - {start = date_start, finish = date_finish, name}
+local cal= {}
+function add(calendar, event)
+	for k,v in pairs(cal) do
+		if event.name == v.name then
+			return nil, v
+		elseif v.start <= event.start and event.start <= v.finish then --new event starts during existing one!
+			return nil, v
+		elseif v.start <= event.finish and event.finish <= v.finish then --new event ends during existing one!
+			return nil, v
+		elseif event.start <= v.start and v.finish <= v.e then --there is already an event during new event!
+			return nil, v
+		end
+	end
+	calendar[date_start] = {start = event.start, finish = event.finish, name = event.name}
+	return calendar[date_start]
+end
+
+function show(calendar, all)	
+	current_time = os.time()
+	for k,v in calendar do
+		if k > current_time then
+			local st = os.date('%d/%m/%Y, %A, %H:%M', v.start)
+			local fin = os.date('%d/%m/%Y, %A, %H:%M', v.finish)
+			print(v.name,"starts at:", st,"ends at:", fin)
+	end
+end

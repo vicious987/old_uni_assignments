@@ -1,0 +1,4 @@
+./matmult: invalid option -- 's'
+./matmult: invalid option -- 'b'
+Failure: Usage: ./matmult -n size -v variant
+

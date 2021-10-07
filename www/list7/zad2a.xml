@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-2"?>
+
+<form>
+  <accId>
+    <part1>1234</part1>
+    <part2>1234</part2>
+    <part3>1234</part3>
+    <part4>1234</part4>
+  </accId>
+  <cvc>456</cvc>
+  <date>
+    <month>02</month>
+    <year>05</year>
+  </date>
+  <name>aaa</name>
+  <surname>bbb</surname>
+  <phone>300500700</phone>
+  <email>123sdfs@gmail.com</email>
+  <ammount>10</ammount>
+</form>

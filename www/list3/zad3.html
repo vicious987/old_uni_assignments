@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!-- Mateusz Obara, zadanie 3 z listy 3-->
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Zad 3</title>
+		<style type="text/css">
+			.boxmodel {
+				background-color: gray;
+				width: 250px;
+				padding: 15px;
+				border: 3px dashed black;
+				margin: 30px;
+				text-align: center;
+			}
+			.boxmodel2{
+				background-color: gray;
+				height: 200px;
+				width: 100px;
+				padding: 15px;
+				border: 3px dashed black;
+				display: flex;
+				align-items: center;
+			}
+			.center {
+				line-height: 200px;
+				height: 200px;
+				border: 5px solid blue;
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body>
+
+		<div class="boxmodel"> text-aling: center w klasie </div>
+		<div class="boxmodel">
+			<p style="text-align: center;"> "style=text-align: center;" w paragrafie</p>
+		</div>
+		<!-- 	proby:
+				oraz:
+	text-align: center;
+	vertical-align: middle;
+		-->
+
+		<div class="boxmodel2">
+			<p style="text-align: center;">To samo, ale inne rozmiary boxa</p>
+		</div>
+		<span style="display: block;" class="center">
+			Span z display: block i z text alignem
+		</span>
+		<span class="center">
+			Span bez display: block i z text alignem
+		</span>
+		<div class="center">
+			div z text alignem
+		</div>
+	</body>
+</html>

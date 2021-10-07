@@ -1,0 +1,32 @@
+#lang racket
+
+(define (dist x y)
+  (abs (- x y)))
+
+(define (close-enough? x y)
+  (< (dist x y) 0.00001))
+
+define (fib n)
+  (fib-iter 1 0 n))
+
+(define (fib-iter a b count)
+  (if (= count 0)
+      b
+(fib-iter (+ a b) a (- count 1))))
+
+(define (nseries x n)
+  (let [(- n 1) n1]
+    (if (= n 1)
+        x
+        (* (* n1 n1) (* x x)))))
+
+(define (dseries n)
+  (+ 1 (* 2 (- n 1))))
+
+(define (aseries n x)
+  aseries-iter 1 0 0 n x)
+
+(define (aseries-iter sl l count finish-count x)
+  (if (= count finish-count)
+      l
+      (aseries l (+ (* l (dseries dn x)) (* (bseries n) sl)) (+ count 1) x)))

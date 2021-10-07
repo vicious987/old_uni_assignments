@@ -1,0 +1,53 @@
+%--------------------------------------zad 1			
+len([], 0).
+len([_|T], N) :- 	integer(N),	%abysmy mogli porownac z 0  // to znaczy ze argument np X 3
+			N > 0,		%bo jesli damy -3 to bedziemy schodzic do -4 -5 -6 i tak w nieskonczosc 
+			len(T, X),  
+			N is 1 + X, !. 	% bo chcemy uzyskac jeden wynik 
+
+len([_|T], N) :- len(T,X), N is 1 + X.
+
+%------------------------------------------zad 2
+bedge(Y,X) :- edge(X,Y).
+
+path(From,To,Path) :- path_h(To,From,Path).
+
+%aby odnalezc droge z From do To, przejdzmy przez ten graf wglab
+%do tego bedziemy potrzebowac liste Visited - z From -V- na samym poczatku
+path_h(From, To, Path) :-	travel(From, To, [From], Path). 
+
+% edge(To, From), edge(X,From).
+travel(From, To, Visited, [To|Visited]) :- bedge(From, To). 	%jezeli sa polaczane krawedzia, poprostu dodamy cel do tego co juz przeszlismy 
+ 
+travel(From, To, Visited, Path) :-	bedge(From, X), 	%WPP, jest sobie jaki X ktory jest sasiadem From           
+					X \== To,		% X to nie jest To!
+					\+member(X, Visited), 	% X jest czyms czego jeszcze nie odwiedzilismy
+					travel(X, To, [X|Visited], Path). %znajdzmy droge z X do To, dodajmy X do odwiedzonych
+
+%node(T1,N,T2).
+%------------------------------------zad  4
+
+%kazde dwa poddrzewa zamieniamy miejscami
+mirror(leaf,leaf).
+mirror(node(Left, X, Right), node(Left_Mirror, X, Right_Mirror)) :- 	mirror(Left, Right_Mirror),
+									mirror(Right, Left_Mirror).
+flatten(leaf, []).
+flatten(node(Left, X, Right) , Tree_list) :- 	flatten(Left, Left_subtree_list),
+						flatten(Right, Right_subtree_list),
+						append(Left_subtree_list, [X|Right_subtree_list] , Tree_list).
+
+%------------------------------------zad 5
+add(X, leaf, node(leaf,X,leaf)).					%przypadek bazowy
+add(X, node(L,Root,R), node(L1,Root,R)) :- X =< Root, add(X,L,L1).	%jesli mniejszrowny, to do lewego poddrzewa
+add(X, node(L,Root,R), node(L,Root,R1)) :- X > Root, add(X,R,R1).	% wpp prawe
+
+%dodajmy glowe listy do drzewa base_tree (inicjowanego drzewem pustym),
+%dopoki lista jest pusta
+list_to_bst(L,T) :- list_to_bst(L,leaf,T).
+list_to_bst([],T,T).
+list_to_bst([H|Tail], Base_t, Tree) :- 	add(H, Base_t, New_base_t),
+					list_to_bst(Tail, New_base_t, Tree).
+
+tree_sort(List, Sorted_list) :- list_to_bst(List,BST), flatten(BST,Sorted_list). 
+
+
